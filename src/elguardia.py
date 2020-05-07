@@ -8,7 +8,7 @@ import random
 import os
 # import PyNaCL
 
-canales = {'pastos':705421710819721326, 'sala': 702167241634087094, 'lol': 702168817400545291,'magic': 707410238814552137, 'minecraft': 702184813377093684, 'smite': 707766639558525018, 'afk': 702186742324658177, 'test':707719786741628963}
+canales = {'pastos':705421710819721326, 'salita uwu': 702167241634087094, 'lol': 702168817400545291,'magic': 707410238814552137, 'minecraft': 702184813377093684, 'smite': 707766639558525018, 'afk': 702186742324658177, 'test':707719786741628963}
 currentChanell = None
 bot = commands.Bot(command_prefix='-')
 
@@ -30,7 +30,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    bot.loop.create_task(irAPaquear())
+    # bot.loop.create_task(irAPaquear())
 
 @bot.command()
 async def paquear(ctx, *args):
@@ -56,7 +56,7 @@ async def irAPaquear():
     while True:
         randomKey = random.choice(list(canales.keys()))
         print('move to:', randomKey)
-        await connectToVoiceChannel()
+        await connectToVoiceChannel(randomKey)
         await asyncio.sleep(60)
 
 
@@ -70,4 +70,4 @@ async def connectToVoiceChannel(key):
         await channel.connect()
 
 
-bot.run(token)
+bot.run('NzA3NzE3OTcxNzk0OTg0OTYw.XrRKFw.dXKpP4rtN9cQPdzjPxwJUNvd8ro')
