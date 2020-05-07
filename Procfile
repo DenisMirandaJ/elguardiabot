@@ -1,1 +1,1 @@
-worker: python ./src/elguardia.py
+worker: python src/elguardia.py
