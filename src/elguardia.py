@@ -3,7 +3,6 @@
 import discord
 from discord.ext import commands, tasks
 import datetime
-import requests
 import random
 import os
 import asyncio
@@ -43,9 +42,6 @@ async def paquear(ctx, *args):
             return
         if (args[0].lower() == 'lixo'):
             await ctx.send('Cortese el pelo jipy')
-            return
-        if (args[0].lower == 'joelo'):
-            await ctx.send('ya, pa que tan sangron')
             return
         await connectToVoiceChannel(args[0])
         return
