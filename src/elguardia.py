@@ -52,7 +52,7 @@ async def paquear(ctx, *args):
 async def guardia(ctx, *args):
     print('guardia')
     if (args[0] == 'dar' and args[1] == 'comida' and len(args) > 2):
-        r1 = '\*Se como el {}\* Gracias estaba muy bueno'.format(args[2])
+        r1 = '\*Se come el {}\* Gracias estaba muy bueno'.format(args[2])
         r2 = 'No gracias, no como en el trabajo'
         await ctx.send(r1 if random.random() < 0.5 else r2)
         return
@@ -104,4 +104,4 @@ async def connectToVoiceChannel(key):
             print("error")
 
 
-bot.run('Aqui va el token')
+bot.run('NzA3NzE3OTcxNzk0OTg0OTYw.XrRsmA.bbfzS9ZN4lnnj2w2RUHGKcswjMs')
