@@ -43,6 +43,9 @@ async def paquear(ctx, *args):
         if (args[0].lower() == 'lixo'):
             await ctx.send('Cortese el pelo jipy')
             return
+        if (args[0].lower() == 'denis'):
+            await ctx.send('deja de estar sad ;c')
+            return
         await connectToVoiceChannel(args[0])
         return
     paqueo = random.choice(paqueosPool)
