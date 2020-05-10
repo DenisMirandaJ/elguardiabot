@@ -24,6 +24,8 @@ paqueosPool = [
     'Ya chicos, se puede estar dentro de la universidad solo hasta las 9 vayan saliendo'
 ]
 
+paqueosPorMencion = ['muestreme su credencial','apague eso, no se puede fumar acá',' cortese el pelo']
+
     
 
 @bot.event
@@ -36,6 +38,7 @@ async def on_ready():
 
 @bot.command()
 async def paquear(ctx, *args):
+
     if (len(args) > 0):
         if (args[0].lower() == 'guetti'):
             await ctx.send('Guetti deja el lol')
@@ -46,6 +49,8 @@ async def paquear(ctx, *args):
         if (args[0].lower() == 'denis'):
             await ctx.send('deja de estar sad ;c')
             return
+        if(ctx.message.mentions[0] != None):
+            await ctx.send(ctx.message.mentions[0] +' '+ random.choice(paqueosPorMencion))
         await connectToVoiceChannel(args[0])
         return
     paqueo = random.choice(paqueosPool)
