@@ -1,16 +1,14 @@
 # -*- coding: utf8 -*-
 
-import asyncio
 import random
+import traceback
 
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 import botTokens
 import valores
 
-currentChanel = None
-command_prefix = '-'
-bot = commands.Bot(command_prefix)
+bot = commands.Bot(command_prefix='-')
 
 
 @bot.event
@@ -19,7 +17,6 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    bot.loop.create_task(irAPaquear())
 
 
 @bot.command()
@@ -61,18 +58,21 @@ async def guardia(ctx, *args):
     await ctx.send(paqueo)
 
 
-# @tasks.loop(seconds=60)
-# async def irAPaquear():
-#     randomKey = random.choice(list(canales.keys()))
-#     print('move to:', randomKey)
-#     await connectToVoiceChannel()
+class IrAPaquearCog(commands.Cog):
+    def __init__(self, bot_1):
+        self.bot = bot_1
+        self.data = []
+        self.irAPaquear.start()
 
-async def irAPaquear():
-    while True:
+    @tasks.loop(seconds=60)
+    async def irAPaquear(self):
         randomKey = random.choice(list(valores.canales.keys()))
         print('move to:', randomKey)
         await connectToVoiceChannel(randomKey)
-        await asyncio.sleep(60 * 5)
+
+    @irAPaquear.before_loop
+    async def beforePaquear(self):
+        await self.bot.wait_until_ready()
 
 
 async def connectToVoiceChannel(key):
@@ -82,10 +82,13 @@ async def connectToVoiceChannel(key):
         channelId = valores.canales[key]
         print(type(channelId), channelId)
         channel = bot.get_channel(channelId)
+        if channel is None:
+            return
         try:
             await channel.connect()
-        except:
+        except Exception as e:
             print("error")
+            traceback.print_exc(e)
 
 
 @bot.command()
@@ -100,4 +103,5 @@ async def mandarAPaquear(ctx):
     return
 
 
+bot.add_cog(IrAPaquearCog(bot))
 bot.run(botTokens.protoToken)
