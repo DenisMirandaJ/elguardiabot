@@ -5,8 +5,8 @@ import random
 
 from discord.ext import commands
 
-import contants
-
+import botTokens
+import valores
 
 currentChanel = None
 command_prefix = '-'
@@ -36,10 +36,10 @@ async def paquear(ctx, *args):
             return
         if len(ctx.message.mentions) == 1:
             paqueado = ctx.message.mentions[0].mention
-            await ctx.send(paqueado + ' ' + random.choice(contants.paqueosPorMencion))
+            await ctx.send(paqueado + ' ' + random.choice(valores.paqueosPorMencion))
         await connectToVoiceChannel(args[0])
         return
-    paqueo = random.choice(contants.paqueosPool)
+    paqueo = random.choice(valores.paqueosPool)
     await ctx.send(paqueo)
 
 
@@ -52,11 +52,12 @@ async def guardia(ctx, *args):
         await ctx.send(r1 if random.random() < 0.5 else r2)
         return
 
-    if len(args) > 0:
+    if len(args) == 1:
         if args[0] == 'rules':
-            await ctx.send(contants.reglas)
+            await ctx.send(valores.reglas)
+            return
 
-    paqueo = random.choice(contants.paqueosPool)
+    paqueo = random.choice(valores.paqueosPool)
     await ctx.send(paqueo)
 
 
@@ -68,17 +69,17 @@ async def guardia(ctx, *args):
 
 async def irAPaquear():
     while True:
-        randomKey = random.choice(list(contants.canales.keys()))
+        randomKey = random.choice(list(valores.canales.keys()))
         print('move to:', randomKey)
         await connectToVoiceChannel(randomKey)
         await asyncio.sleep(60 * 5)
 
 
 async def connectToVoiceChannel(key):
-    if key in contants.canales:
+    if key in valores.canales:
         if len(bot.voice_clients) > 0:
             await bot.voice_clients[0].disconnect()
-        channelId = contants.canales[key]
+        channelId = valores.canales[key]
         print(type(channelId), channelId)
         channel = bot.get_channel(channelId)
         try:
@@ -86,4 +87,17 @@ async def connectToVoiceChannel(key):
         except:
             print("error")
 
-bot.run(contants.protoToken)
+
+@bot.command()
+async def mandarAPaquear(ctx):
+    randomVoiceChannel = random.choice(ctx.guild.voice_channels)
+    if len(ctx.bot.voice_clients) > 0:
+        while randomVoiceChannel == ctx.bot.voice_clients[0].channel:
+            randomVoiceChannel = random.choice(ctx.guild.voice_channels)
+        await ctx.bot.voice_clients[0].disconnect()
+    print("Attempting to move to: ", randomVoiceChannel)
+    await randomVoiceChannel.connect()
+    return
+
+
+bot.run(botTokens.protoToken)

@@ -1,10 +1,3 @@
-# urlTestServer = 'https://discord.gg/wkAmyxX'
-# noinspection SpellCheckingInspection
-protoToken = 'NzA5MTY0Mjc4OTY3Njk3NDI4.Xrh6sw.UpAeXOCtCqxr-BNyp8127cH0Q58'
-
-token = 'NzA3NzE3OTcxNzk0OTg0OTYw.XrM3uQ.UTJQl0aBDHwUuN_Q7BKphHZo_Kk'
-
-
 # Pools
 
 def pool_paqueos_grupales():
