@@ -1,9 +1,9 @@
 # -*- coding: utf8 -*-
 
 import random
-import traceback
 
 from discord.ext import commands, tasks
+from discord.utils import deprecated
 
 import botTokens
 import valores
@@ -34,7 +34,6 @@ async def paquear(ctx, *args):
         if len(ctx.message.mentions) == 1:
             paqueado = ctx.message.mentions[0].mention
             await ctx.send(paqueado + ' ' + random.choice(valores.paqueosPorMencion))
-        await connectToVoiceChannel(args[0])
         return
     paqueo = random.choice(valores.paqueosPool)
     await ctx.send(paqueo)
@@ -63,34 +62,35 @@ class IrAPaquearCog(commands.Cog):
         self.bot = bot_1
         self.data = []
         self.irAPaquear.start()
+        self.server = None
 
     @tasks.loop(seconds=60)
     async def irAPaquear(self):
-        randomKey = random.choice(list(valores.canales.keys()))
-        print('move to:', randomKey)
-        await connectToVoiceChannel(randomKey)
+        randomVoiceChannel = random.choice(self.server.voice_channels)
+        if len(bot.voice_clients) > 0:
+            while randomVoiceChannel == bot.voice_clients[0].channel:
+                randomVoiceChannel = random.choice(self.server.voice_channels)
+            await bot.voice_clients[0].disconnect()
+        print("Attempting to move to: ", randomVoiceChannel)
+        await randomVoiceChannel.connect()
 
     @irAPaquear.before_loop
     async def beforePaquear(self):
         await self.bot.wait_until_ready()
+        self.server = bot.get_guild(valores.serverId)
 
 
-async def connectToVoiceChannel(key):
-    if key in valores.canales:
-        if len(bot.voice_clients) > 0:
-            await bot.voice_clients[0].disconnect()
-        channelId = valores.canales[key]
-        print(type(channelId), channelId)
-        channel = bot.get_channel(channelId)
-        if channel is None:
-            return
-        try:
-            await channel.connect()
-        except Exception as e:
-            print("error")
-            traceback.print_exc(e)
+@deprecated
+async def connectToVoiceChannel(channelId):
+    if len(bot.voice_clients) > 0:
+        await bot.voice_clients[0].disconnect()
+    channel = bot.get_channel(channelId)
+    if channel is None:
+        return
+    await channel.connect()
 
 
+@deprecated
 @bot.command()
 async def mandarAPaquear(ctx):
     randomVoiceChannel = random.choice(ctx.guild.voice_channels)
