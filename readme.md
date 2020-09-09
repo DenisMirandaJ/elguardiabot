@@ -1,6 +1,9 @@
 # El guardia bot
 Es un bot de discord desarrollado para emular las funciones que realiza un guardia en la vida universitaria.
 
+## Errores conocidos
+* el guardia no patrulla apropiadamente
+
 ## Comandos soportados
 cada comando se utiliza con el prefijo "-" seguido de la instrucción
 * `paquear {@etiqueta}`
