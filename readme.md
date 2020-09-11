@@ -4,6 +4,9 @@ Es un bot de discord desarrollado para emular las funciones que realiza un guard
 ## Errores conocidos
 * el guardia no patrulla apropiadamente
 
+## Funciones por añadir
+* que el guardia al paquear se conecte a un canal y hable
+
 ## Comandos soportados
 cada comando se utiliza con el prefijo "-" seguido de la instrucción
 * `paquear {@etiqueta}`
