@@ -1,16 +1,14 @@
 # -*- coding: utf8 -*-
 
-import asyncio
 import random
 
-from discord.ext import commands
+from discord.ext import commands, tasks
+from discord.utils import deprecated
 
-import contants
+import botTokens
+import valores
 
-
-currentChanel = None
-command_prefix = '-'
-bot = commands.Bot(command_prefix)
+bot = commands.Bot(command_prefix='-')
 
 
 @bot.event
@@ -19,7 +17,6 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    bot.loop.create_task(irAPaquear())
 
 
 @bot.command()
@@ -36,10 +33,9 @@ async def paquear(ctx, *args):
             return
         if len(ctx.message.mentions) == 1:
             paqueado = ctx.message.mentions[0].mention
-            await ctx.send(paqueado + ' ' + random.choice(contants.paqueosPorMencion))
-        await connectToVoiceChannel(args[0])
+            await ctx.send(paqueado + ' ' + random.choice(valores.paqueosPorMencion))
         return
-    paqueo = random.choice(contants.paqueosPool)
+    paqueo = random.choice(valores.paqueosPool)
     await ctx.send(paqueo)
 
 
@@ -52,38 +48,60 @@ async def guardia(ctx, *args):
         await ctx.send(r1 if random.random() < 0.5 else r2)
         return
 
-    if len(args) > 0:
+    if len(args) == 1:
         if args[0] == 'rules':
-            await ctx.send(contants.reglas)
+            await ctx.send(valores.reglas)
+            return
 
-    paqueo = random.choice(contants.paqueosPool)
+    paqueo = random.choice(valores.paqueosPool)
     await ctx.send(paqueo)
 
 
-# @tasks.loop(seconds=60)
-# async def irAPaquear():
-#     randomKey = random.choice(list(canales.keys()))
-#     print('move to:', randomKey)
-#     await connectToVoiceChannel()
+class IrAPaquearCog(commands.Cog):
+    def __init__(self, bot_1):
+        self.bot = bot_1
+        self.data = []
+        self.irAPaquear.start()
+        self.server = None
 
-async def irAPaquear():
-    while True:
-        randomKey = random.choice(list(contants.canales.keys()))
-        print('move to:', randomKey)
-        await connectToVoiceChannel(randomKey)
-        await asyncio.sleep(60 * 5)
-
-
-async def connectToVoiceChannel(key):
-    if key in contants.canales:
+    @tasks.loop(seconds=60)
+    async def irAPaquear(self):
+        randomVoiceChannel = random.choice(self.server.voice_channels)
         if len(bot.voice_clients) > 0:
+            while randomVoiceChannel == bot.voice_clients[0].channel:
+                randomVoiceChannel = random.choice(self.server.voice_channels)
             await bot.voice_clients[0].disconnect()
-        channelId = contants.canales[key]
-        print(type(channelId), channelId)
-        channel = bot.get_channel(channelId)
-        try:
-            await channel.connect()
-        except:
-            print("error")
+        print("Attempting to move to: ", randomVoiceChannel)
+        await randomVoiceChannel.connect()
 
-bot.run(contants.protoToken)
+    @irAPaquear.before_loop
+    async def beforePaquear(self):
+        await self.bot.wait_until_ready()
+        self.server = bot.get_guild(valores.serverId)
+
+
+@deprecated
+async def connectToVoiceChannel(channelId):
+    if len(bot.voice_clients) > 0:
+        await bot.voice_clients[0].disconnect()
+    channel = bot.get_channel(channelId)
+    if channel is None:
+        return
+    await channel.connect()
+
+
+@deprecated
+@bot.command()
+async def mandarAPaquear(ctx):
+    randomVoiceChannel = random.choice(ctx.guild.voice_channels)
+    if len(ctx.bot.voice_clients) > 0:
+        while randomVoiceChannel == ctx.bot.voice_clients[0].channel:
+            randomVoiceChannel = random.choice(ctx.guild.voice_channels)
+        await ctx.bot.voice_clients[0].disconnect()
+    print("Attempting to move to: ", randomVoiceChannel)
+    await randomVoiceChannel.connect()
+    return
+
+
+bot.add_cog(IrAPaquearCog(bot))
+bot.run(botTokens.protoToken)

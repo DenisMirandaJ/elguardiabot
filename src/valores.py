@@ -1,11 +1,6 @@
-# urlTestServer = 'https://discord.gg/wkAmyxX'
-# noinspection SpellCheckingInspection
-protoToken = 'NzA5MTY0Mjc4OTY3Njk3NDI4.Xrh6sw.UpAeXOCtCqxr-BNyp8127cH0Q58'
-
-token = 'NzA3NzE3OTcxNzk0OTg0OTYw.XrM3uQ.UTJQl0aBDHwUuN_Q7BKphHZo_Kk'
-
-
 # Pools
+from discord.utils import deprecated
+
 
 def pool_paqueos_grupales():
     paqueo1 = 'a ver muestrenme sus credenciales'
@@ -26,6 +21,7 @@ def pool_paqueos_mencion():
     return [paqueo1, paqueo2, paqueo3]
 
 
+@deprecated
 def pool_canales_a_paquear():
     canal01 = {'pastos', 705421710819721326}
     canal02 = {'salita uwu', 702167241634087094}
@@ -39,9 +35,21 @@ def pool_canales_a_paquear():
     return dict([canal01, canal02, canal03, canal04, canal05, canal06, canal07, canal08, canal09])
 
 
+@deprecated
+def pool_canales_a_paquear_TEST():
+    canal01 = {'general', 752649753430589596}
+    canal02 = {'voz1', 752717883481522196}
+    canal03 = {'voz2', 752717969079140392}
+    return dict([canal01, canal02, canal03])
+
+
 ## end Pools
 
-canales = pool_canales_a_paquear()
+# canales = pool_canales_a_paquear()
+# canales = pool_canales_a_paquear_TEST()
+serverId_TEST = 752649753430589591
+serverId = 702167240463876129
+
 paqueosPool = pool_paqueos_grupales()
 paqueosPorMencion = pool_paqueos_mencion()
 reglas = '''Reglas:
