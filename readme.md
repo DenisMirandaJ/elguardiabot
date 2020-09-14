@@ -2,9 +2,10 @@
 Es un bot de discord desarrollado para emular las funciones que realiza un guardia en la vida universitaria.
 
 ## Errores conocidos
-* el guardia no patrulla apropiadamente
+* ~~el guardia no patrulla apropiadamente~~
 
 ## Funciones por añadir
+* que el guardia diga al conectarse a paquear: "que estan fumando señores"
 * que el guardia al paquear se conecte a un canal y hable
 
 ## Comandos soportados
