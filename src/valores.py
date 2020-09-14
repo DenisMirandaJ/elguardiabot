@@ -21,31 +21,17 @@ def pool_paqueos_mencion():
     return [paqueo1, paqueo2, paqueo3]
 
 
-@deprecated
-def pool_canales_a_paquear():
-    canal01 = {'pastos', 705421710819721326}
-    canal02 = {'salita uwu', 702167241634087094}
-    canal03 = {'lol', 702168817400545291}
-    canal04 = {'magic', 707410238814552137}
-    canal05 = {'minecraft', 702184813377093684}
-    canal06 = {'afk', 702186742324658177}
-    canal07 = {'test', 707719786741628963}
-    canal08 = {'smite', 707766639558525018}
-    canal09 = {'valorant', 707766639558525018}
-    return dict([canal01, canal02, canal03, canal04, canal05, canal06, canal07, canal08, canal09])
 
 
-@deprecated
-def pool_canales_a_paquear_TEST():
-    canal01 = {'general', 752649753430589596}
-    canal02 = {'voz1', 752717883481522196}
-    canal03 = {'voz2', 752717969079140392}
-    return dict([canal01, canal02, canal03])
+# def pool_canales_a_paquear_TEST():
+#     canal01 = {'general', 752649753430589596}
+#     canal02 = {'voz1', 752717883481522196}
+#     canal03 = {'voz2', 752717969079140392}
+#     return dict([canal01, canal02, canal03])
 
 
 ## end Pools
 
-# canales = pool_canales_a_paquear()
 # canales = pool_canales_a_paquear_TEST()
 serverId_TEST = 752649753430589591
 serverId = 702167240463876129
