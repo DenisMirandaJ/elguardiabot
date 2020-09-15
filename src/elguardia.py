@@ -83,7 +83,7 @@ async def connectionProtocol():
     channel = chooseRandomChannel()
     while not channel:
         channel = chooseRandomChannel()
-    await disconnectOthers()
+    await disconnectOtherVoiceClients()
     await connectToVoiceChannel(channel)
 
 
@@ -104,7 +104,7 @@ def chooseRandomChannel():
     return randomVoiceChannel
 
 
-async def disconnectOthers():
+async def disconnectOtherVoiceClients():
     while len(bot.voice_clients) > 0:
         for client in bot.voice_clients:
             await client.disconnect()
@@ -112,8 +112,15 @@ async def disconnectOthers():
 
 
 async def connectToVoiceChannel(channel):
-    print("Attempting to move to: ", channel)
+    print("Attempting move to: ", channel)
     await channel.connect()
+    await autoMute(bot.voice_clients[0])
+    return
+
+
+async def autoMute(voiceClient):
+    await voiceClient.main_ws.voice_state(guild_id=voiceClient.guild.id, channel_id=voiceClient.channel.id,
+                                          self_mute=True)
     return
 
 
