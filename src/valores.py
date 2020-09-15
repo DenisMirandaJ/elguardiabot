@@ -1,5 +1,9 @@
-# Pools
-from discord.utils import deprecated
+# PATH_FFMPEG = "C:/Users/Vichaoss/Downloads/ffmpeg/bin/ffmpeg.exe"
+PATH_FFMPEG = "/usr/bin/ffmpeg"
+PATH_SOURCES = "../res/"
+
+serverId_TEST = 752649753430589591
+serverId = 702167240463876129
 
 
 def pool_paqueos_grupales():
@@ -14,6 +18,9 @@ def pool_paqueos_grupales():
     return [paqueo1, paqueo2, paqueo3, paqueo4, paqueo5, paqueo6, paqueo7]
 
 
+paqueosPool = pool_paqueos_grupales()
+
+
 def pool_paqueos_mencion():
     paqueo1 = 'muestreme su credencial'
     paqueo2 = 'apague eso, no se puede fumar acá'
@@ -21,23 +28,8 @@ def pool_paqueos_mencion():
     return [paqueo1, paqueo2, paqueo3]
 
 
-
-
-# def pool_canales_a_paquear_TEST():
-#     canal01 = {'general', 752649753430589596}
-#     canal02 = {'voz1', 752717883481522196}
-#     canal03 = {'voz2', 752717969079140392}
-#     return dict([canal01, canal02, canal03])
-
-
-## end Pools
-
-# canales = pool_canales_a_paquear_TEST()
-serverId_TEST = 752649753430589591
-serverId = 702167240463876129
-
-paqueosPool = pool_paqueos_grupales()
 paqueosPorMencion = pool_paqueos_mencion()
+
 reglas = '''Reglas:
 1)    La clásica: Respete para que lo respeten
 2)   Respeta los canales, el server esta organizado de una manera y ojalá sigan ese orden. Si te equivocas de canal borra el mensaje y corrige el error todos cometemos errores pero no postees cosas por donde no van pls

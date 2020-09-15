@@ -2,13 +2,16 @@
 
 import random
 
+import discord
 from discord.ext import commands, tasks
-from discord.utils import deprecated
 
 import botTokens
 import valores
 
 bot = commands.Bot(command_prefix='-')
+
+# token = botTokens.protoToken
+# serverDePaqueo = valores.serverId_TEST
 token = botTokens.tokenGuardia
 serverDePaqueo = valores.serverId
 
@@ -85,6 +88,7 @@ async def connectionProtocol():
         channel = chooseRandomChannel()
     await disconnectOtherVoiceClients()
     await connectToVoiceChannel(channel)
+    return
 
 
 # noinspection PyUnresolvedReferences
@@ -114,20 +118,30 @@ async def disconnectOtherVoiceClients():
 async def connectToVoiceChannel(channel):
     print("Attempting move to: ", channel)
     await channel.connect()
-    await autoMute(bot.voice_clients[0])
+    if len(channel.members) >= 3:
+        await fumando()
+    await selfMute(bot.voice_clients[0])
     return
 
 
-async def autoMute(voiceClient):
+async def selfMute(voiceClient):
     await voiceClient.main_ws.voice_state(guild_id=voiceClient.guild.id, channel_id=voiceClient.channel.id,
                                           self_mute=True)
     return
 
 
-@deprecated
-@bot.command()
-async def mandarAPaquear():
-    await connectionProtocol()
+async def unMute(voiceClient):
+    await voiceClient.main_ws.voice_state(guild_id=voiceClient.guild.id, channel_id=voiceClient.channel.id,
+                                          self_mute=False)
+    return
+
+
+async def fumando():
+    voiceClient = bot.voice_clients[0]
+    voiceChannel = voiceClient.channel
+    if voiceChannel is not None:
+        audio = valores.PATH_SOURCES + "tan_fumando_senore.mp3"
+        voiceClient.play(discord.FFmpegPCMAudio(executable=valores.PATH_FFMPEG, source=audio))
     return
 
 

@@ -5,8 +5,9 @@ Es un bot de discord desarrollado para emular las funciones que realiza un guard
 * ~~el guardia no patrulla apropiadamente~~
 
 ## Funciones por añadir
-* que el guardia diga al conectarse a paquear: "que están fumando señores"
-* que el guardia al paquear se conecte a un canal y hable
+* ~~que el guardia al paquear se conecte a un canal y hable~~
+  * solo habla actualmente cuando se conecta a un canal con 2 o mas otras personas
+* ~~que el guardia diga al conectarse a paquear: "que están fumando señores"~~ (Lixo)
 
 ## Comandos soportados
 cada comando se utiliza con el prefijo "-" seguido de la instrucción
