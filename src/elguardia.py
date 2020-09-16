@@ -1,19 +1,14 @@
 # -*- coding: utf8 -*-
-
 import random
 
 import discord
+
 from discord.ext import commands, tasks
+from valores import ENVIRONMENT_LOCAL, Valores
 
-import botTokens
-import valores
+valores = Valores(test=False, environment=ENVIRONMENT_LOCAL)
 
-bot = commands.Bot(command_prefix='-')
-
-# token = botTokens.protoToken
-# serverDePaqueo = valores.serverId_TEST
-token = botTokens.tokenGuardia
-serverDePaqueo = valores.serverId
+bot = commands.Bot(command_prefix=valores.COMMAND_PREFIX)
 
 
 @bot.event
@@ -21,7 +16,7 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
-    bot.server = bot.get_guild(serverDePaqueo)
+    bot.server = bot.get_guild(valores.SERVER_ID)
     print('------')
     return
 
@@ -40,9 +35,9 @@ async def paquear(ctx, *args):
             return
         if len(ctx.message.mentions) == 1:
             paqueado = ctx.message.mentions[0].mention
-            await ctx.send(paqueado + ' ' + random.choice(valores.paqueosPorMencion))
+            await ctx.send(paqueado + ' ' + random.choice(valores.pool_paqueos_mencion()))
         return
-    paqueo = random.choice(valores.paqueosPool)
+    paqueo = random.choice(valores.pool_paqueos_genericos())
     await ctx.send(paqueo)
     return
 
@@ -57,9 +52,9 @@ async def guardia(ctx, *args):
         return
     if len(args) == 1:
         if args[0] == 'rules':
-            await ctx.send(valores.reglas)
+            await ctx.send(valores.reglas())
             return
-    paqueo = random.choice(valores.paqueosPool)
+    paqueo = random.choice(valores.pool_paqueos_genericos())
     await ctx.send(paqueo)
     return
 
@@ -71,7 +66,7 @@ class IrAPaquearCog(commands.Cog):
         self.irAPaquear.start()
         return
 
-    @tasks.loop(seconds=60)
+    @tasks.loop(seconds=valores.TIEMPO_ENTRE_PAQUEOS)
     async def irAPaquear(self):
         await connectionProtocol()
         return
@@ -146,4 +141,4 @@ async def fumando():
 
 
 bot.add_cog(IrAPaquearCog(bot))
-bot.run(token)
+bot.run(valores.TOKEN)
