@@ -117,6 +117,6 @@ async def fumando():
     voice_client = Valores.BOT.voice_clients[0]
     voice_channel = voice_client.channel
     if voice_channel is not None:
-        audio = Valores.PATH_SOURCES + "tan_fumando_senore.mp3"
+        audio = Valores.PATH_SOURCES() + "tan_fumando_senore.mp3"
         voice_client.play(discord.FFmpegPCMAudio(executable=Valores.PATH_FFMPEG(), source=audio))
     return

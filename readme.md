@@ -24,5 +24,8 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.0.1.0
+  * **valores.py**
+    * Corregidas rutas relativas disfuncionales de logs y sources (fixeadas a absolutas)
 * 1.0.0.0
   * Primera version _estable_, capaz de paquear por etiquetas, _hablar_, generar registros de su actividad y documentado.

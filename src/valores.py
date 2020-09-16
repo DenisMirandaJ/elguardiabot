@@ -15,8 +15,6 @@ class Valores:
     ENVIRONMENT = ENVIRONMENT_SERVER
     # valor deseado = 60f
     TIEMPO_ENTRE_PAQUEOS = 60
-    PATH_SOURCES = '../res/'
-    PATH_LOGS = '../logs/'
     COMMAND_PREFIX = '-'
     BOT = None
 
@@ -27,6 +25,20 @@ class Valores:
         if Valores.ENVIRONMENT is ENVIRONMENT_LOCAL:
             return 'C:/Users/Vichaoss/Downloads/ffmpeg/bin/ffmpeg.exe'
         return
+
+    @staticmethod
+    def PATH_SOURCES():
+        if Valores.ENVIRONMENT is ENVIRONMENT_SERVER:
+            return '/home/ubuntu/elguardiabot/res/'
+        if Valores.ENVIRONMENT is ENVIRONMENT_LOCAL:
+            return '../res/'
+
+    @staticmethod
+    def PATH_LOGS():
+        if Valores.ENVIRONMENT is ENVIRONMENT_SERVER:
+            return '/home/ubuntu/elguardiabot/logs/'
+        if Valores.ENVIRONMENT is ENVIRONMENT_LOCAL:
+            return '../logs/'
 
     @staticmethod
     def paqueos_genericos():

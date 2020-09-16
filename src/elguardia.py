@@ -6,13 +6,13 @@ import random
 
 from discord.ext import commands
 from irAPaquear import IrAPaquearCog
-from log import Log
+# from log import Log
 # noinspection PyUnresolvedReferences
 from valores import ENVIRONMENT_LOCAL, Valores
 
 ####
 # VERSION
-Valores.VERSION = "1.0.0.0"
+Valores.VERSION = "1.0.1.0"
 ####
 
 
@@ -20,7 +20,9 @@ Valores.VERSION = "1.0.0.0"
 # Valores.ENVIRONMENT = ENVIRONMENT_LOCAL
 bot = commands.Bot(command_prefix=Valores.COMMAND_PREFIX)
 Valores.BOT = bot
-log = Log()
+
+
+# log = Log()
 
 
 @bot.event
