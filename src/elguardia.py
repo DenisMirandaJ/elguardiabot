@@ -1,14 +1,14 @@
 # -*- coding: utf8 -*-
-
 import random
 
+import discord
+
 from discord.ext import commands, tasks
-from discord.utils import deprecated
+from valores import ENVIRONMENT_LOCAL, Valores
 
-import botTokens
-import valores
+valores = Valores(test=False, environment=ENVIRONMENT_LOCAL)
 
-bot = commands.Bot(command_prefix='-')
+bot = commands.Bot(command_prefix=valores.COMMAND_PREFIX)
 
 
 @bot.event
@@ -16,7 +16,9 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
+    bot.server = bot.get_guild(valores.SERVER_ID)
     print('------')
+    return
 
 
 @bot.command()
@@ -33,10 +35,11 @@ async def paquear(ctx, *args):
             return
         if len(ctx.message.mentions) == 1:
             paqueado = ctx.message.mentions[0].mention
-            await ctx.send(paqueado + ' ' + random.choice(valores.paqueosPorMencion))
+            await ctx.send(paqueado + ' ' + random.choice(valores.pool_paqueos_mencion()))
         return
-    paqueo = random.choice(valores.paqueosPool)
+    paqueo = random.choice(valores.pool_paqueos_genericos())
     await ctx.send(paqueo)
+    return
 
 
 @bot.command()
@@ -47,14 +50,13 @@ async def guardia(ctx, *args):
         r2 = 'No gracias, no como en el trabajo'
         await ctx.send(r1 if random.random() < 0.5 else r2)
         return
-
     if len(args) == 1:
         if args[0] == 'rules':
-            await ctx.send(valores.reglas)
+            await ctx.send(valores.reglas())
             return
-
-    paqueo = random.choice(valores.paqueosPool)
+    paqueo = random.choice(valores.pool_paqueos_genericos())
     await ctx.send(paqueo)
+    return
 
 
 class IrAPaquearCog(commands.Cog):
@@ -62,46 +64,81 @@ class IrAPaquearCog(commands.Cog):
         self.bot = bot_1
         self.data = []
         self.irAPaquear.start()
-        self.server = None
+        return
 
-    @tasks.loop(seconds=60)
+    @tasks.loop(seconds=valores.TIEMPO_ENTRE_PAQUEOS)
     async def irAPaquear(self):
-        randomVoiceChannel = random.choice(self.server.voice_channels)
-        if len(bot.voice_clients) > 0:
-            while randomVoiceChannel == bot.voice_clients[0].channel:
-                randomVoiceChannel = random.choice(self.server.voice_channels)
-            await bot.voice_clients[0].disconnect()
-        print("Attempting to move to: ", randomVoiceChannel)
-        await randomVoiceChannel.connect()
+        await connectionProtocol()
+        return
 
     @irAPaquear.before_loop
     async def beforePaquear(self):
         await self.bot.wait_until_ready()
-        self.server = bot.get_guild(valores.serverId)
-
-
-@deprecated
-async def connectToVoiceChannel(channelId):
-    if len(bot.voice_clients) > 0:
-        await bot.voice_clients[0].disconnect()
-    channel = bot.get_channel(channelId)
-    if channel is None:
         return
+
+
+async def connectionProtocol():
+    channel = chooseRandomChannel()
+    while not channel:
+        channel = chooseRandomChannel()
+    await disconnectOtherVoiceClients()
+    await connectToVoiceChannel(channel)
+    return
+
+
+# noinspection PyUnresolvedReferences
+def chooseRandomChannel():
+    randomVoiceChannel = random.choice(bot.server.voice_channels)
+    canConnect = None
+    for role in randomVoiceChannel.overwrites:
+        permOverride = randomVoiceChannel.overwrites[role]
+        if role.name == "@everyone" or role.name == "uwus":
+            canConnect = permOverride.connect
+            break
+    if canConnect is False:
+        return None
+    if len(bot.voice_clients) > 0:
+        if randomVoiceChannel == bot.voice_clients[0].channel:
+            return None
+    return randomVoiceChannel
+
+
+async def disconnectOtherVoiceClients():
+    while len(bot.voice_clients) > 0:
+        for client in bot.voice_clients:
+            await client.disconnect()
+    return
+
+
+async def connectToVoiceChannel(channel):
+    print("Attempting move to: ", channel)
     await channel.connect()
+    if len(channel.members) >= 3:
+        await fumando()
+    await selfMute(bot.voice_clients[0])
+    return
 
 
-@deprecated
-@bot.command()
-async def mandarAPaquear(ctx):
-    randomVoiceChannel = random.choice(ctx.guild.voice_channels)
-    if len(ctx.bot.voice_clients) > 0:
-        while randomVoiceChannel == ctx.bot.voice_clients[0].channel:
-            randomVoiceChannel = random.choice(ctx.guild.voice_channels)
-        await ctx.bot.voice_clients[0].disconnect()
-    print("Attempting to move to: ", randomVoiceChannel)
-    await randomVoiceChannel.connect()
+async def selfMute(voiceClient):
+    await voiceClient.main_ws.voice_state(guild_id=voiceClient.guild.id, channel_id=voiceClient.channel.id,
+                                          self_mute=True)
+    return
+
+
+async def unMute(voiceClient):
+    await voiceClient.main_ws.voice_state(guild_id=voiceClient.guild.id, channel_id=voiceClient.channel.id,
+                                          self_mute=False)
+    return
+
+
+async def fumando():
+    voiceClient = bot.voice_clients[0]
+    voiceChannel = voiceClient.channel
+    if voiceChannel is not None:
+        audio = valores.PATH_SOURCES + "tan_fumando_senore.mp3"
+        voiceClient.play(discord.FFmpegPCMAudio(executable=valores.PATH_FFMPEG, source=audio))
     return
 
 
 bot.add_cog(IrAPaquearCog(bot))
-bot.run(botTokens.protoToken)
+bot.run(valores.TOKEN)
