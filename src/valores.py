@@ -5,7 +5,12 @@ ENVIRONMENT_SERVER = 0
 ENVIRONMENT_LOCAL = 1
 
 
+# noinspection PyMissingOrEmptyDocstring,PyPep8Naming
 class Valores:
+    """
+    Clase estatica que contiene todas las constantes y valores de configuracion del bot
+    """
+    VERSION = None
     TEST = False
     ENVIRONMENT = ENVIRONMENT_SERVER
     # valor deseado = 60f
@@ -22,7 +27,6 @@ class Valores:
         if Valores.ENVIRONMENT is ENVIRONMENT_LOCAL:
             return 'C:/Users/Vichaoss/Downloads/ffmpeg/bin/ffmpeg.exe'
         return
-
 
     @staticmethod
     def paqueos_genericos():
@@ -67,11 +71,9 @@ class Valores:
         if Valores.TEST is False:
             return 702167240463876129
 
-
     @staticmethod
     def TOKEN():
         if Valores.TEST is True:
             return botTokens.protoToken
         if Valores.TEST is False:
             return botTokens.tokenGuardia
-
