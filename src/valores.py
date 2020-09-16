@@ -6,25 +6,26 @@ ENVIRONMENT_LOCAL = 1
 
 
 class Valores:
-
-    def __init__(self, test, environment):
-        self.PATH_SOURCES = '../res/'
-        self.COMMAND_PREFIX = '-'
-        # valor deseado = 60f
-        self.TIEMPO_ENTRE_PAQUEOS = 5
-        if environment is ENVIRONMENT_SERVER:
-            self.PATH_FFMPEG = '/usr/bin/ffmpeg'
-        if environment is ENVIRONMENT_LOCAL:
-            self.PATH_FFMPEG = 'C:/Users/Vichaoss/Downloads/ffmpeg/bin/ffmpeg.exe'
-        if test is True:
-            self.TOKEN = botTokens.protoToken
-            self.SERVER_ID = 752649753430589591
-        if test is False:
-            self.TOKEN = botTokens.tokenGuardia
-            self.SERVER_ID = 702167240463876129
+    TEST = False
+    ENVIRONMENT = ENVIRONMENT_SERVER
+    # valor deseado = 60f
+    TIEMPO_ENTRE_PAQUEOS = 60
+    PATH_SOURCES = '../res/'
+    PATH_LOGS = '../logs/'
+    COMMAND_PREFIX = '-'
+    BOT = None
 
     @staticmethod
-    def pool_paqueos_genericos():
+    def PATH_FFMPEG():
+        if Valores.ENVIRONMENT is ENVIRONMENT_SERVER:
+            return '/usr/bin/ffmpeg'
+        if Valores.ENVIRONMENT is ENVIRONMENT_LOCAL:
+            return 'C:/Users/Vichaoss/Downloads/ffmpeg/bin/ffmpeg.exe'
+        return
+
+
+    @staticmethod
+    def paqueos_genericos():
         paqueo1 = 'a ver muestrenme sus credenciales'
         paqueo2 = '\*foto a la credencial\* esto le va a llegar a su jefe de carrera'
         paqueo3 = 'ya chicos retirense'
@@ -35,7 +36,7 @@ class Valores:
         return [paqueo1, paqueo2, paqueo3, paqueo4, paqueo5, paqueo6, paqueo7]
 
     @staticmethod
-    def pool_paqueos_mencion():
+    def paqueos_por_mencion():
         paqueo1 = 'muestreme su credencial'
         paqueo2 = 'apague eso, no se puede fumar acá'
         paqueo3 = ' cortese el pelo'
@@ -58,3 +59,19 @@ class Valores:
         De cada categoría de juegos
         #general Es para que compartan sus nicks por allí y hablen de dicho juego por allí, en el general común se pierden sus mensajes :c'''
         return reglas
+
+    @staticmethod
+    def SERVER_ID():
+        if Valores.TEST is True:
+            return 752649753430589591
+        if Valores.TEST is False:
+            return 702167240463876129
+
+
+    @staticmethod
+    def TOKEN():
+        if Valores.TEST is True:
+            return botTokens.protoToken
+        if Valores.TEST is False:
+            return botTokens.tokenGuardia
+
