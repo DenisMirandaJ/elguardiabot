@@ -12,11 +12,11 @@ from valores import ENVIRONMENT_LOCAL, Valores
 
 ####
 # VERSION
-Valores.VERSION = "1.0.1.0"
+Valores.VERSION = "1.0.2.0"
 ####
 
 
-# Valores.TEST=True
+Valores.TEST = True
 # Valores.ENVIRONMENT = ENVIRONMENT_LOCAL
 bot = commands.Bot(command_prefix=Valores.COMMAND_PREFIX)
 Valores.BOT = bot
@@ -85,7 +85,8 @@ async def guardia(ctx, *args):
             await ctx.send(Valores.reglas())
             return
         if args[0] == "version!":
-            ctx.send(Valores.VERSION)
+            await ctx.send('Estoy en la version: ' + Valores.VERSION)
+            return
     return
 
 

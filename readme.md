@@ -24,6 +24,9 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.0.2.0
+  * **elguardia.py**
+    * Corregido el comando `-guardia version!`
 * 1.0.1.0
   * **valores.py**
     * Corregidas rutas relativas disfuncionales de logs y sources (fixeadas a absolutas)
