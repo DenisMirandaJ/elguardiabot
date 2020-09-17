@@ -12,13 +12,14 @@ from valores import ENVIRONMENT_LOCAL, Valores
 
 ####
 # VERSION
-Valores.VERSION = "1.0.2.0"
+Valores.VERSION = "1.0.2.1"
 ####
 
 
 # Valores.TEST = True
 # Valores.ENVIRONMENT = ENVIRONMENT_LOCAL
 bot = commands.Bot(command_prefix=Valores.COMMAND_PREFIX)
+bot.remove_command('help')
 Valores.BOT = bot
 
 

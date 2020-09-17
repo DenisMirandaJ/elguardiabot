@@ -4,6 +4,8 @@ Es un bot de discord desarrollado para emular las funciones que realiza un guard
 ## Errores conocidos
 
 ## Funciones por añadir
+* Comando de ayuda o información de los comandos
+* Web del bot (posiblemente otro proyecto) con los comando y link al repositorio
 
 ## Comandos soportados
 cada comando se utiliza con el prefijo "-" seguido de la instrucción
@@ -24,6 +26,9 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.0.2.1
+  * **elguardia.py**
+    * Se ha deshabilitado el comando `-help` predeterminado
 * 1.0.2.0
   * **elguardia.py**
     * Corregido el comando `-guardia version!`
