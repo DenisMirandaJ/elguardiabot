@@ -12,7 +12,7 @@ from valores import ENVIRONMENT_LOCAL, Valores
 
 ####
 # VERSION
-Valores.VERSION = "1.0.2.1"
+Valores.VERSION = "1.0.2.2"
 ####
 
 

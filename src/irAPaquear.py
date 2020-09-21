@@ -91,7 +91,7 @@ async def connect_to_voice_channel(channel):
     """
     print("Attempting move to: ", channel)
     await channel.connect()
-    if len(channel.members) >= 3:
+    if len(channel.members) >= 5:
         await fumando()
     await turn_mute(voice_client=Valores.BOT.voice_clients[0], estado=True)
     return

@@ -26,6 +26,9 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.0.2.2
+  * **irAPaquear.py**
+    * Se incrementó la cantidad de clientes necesarios para el paqueo por voz
 * 1.0.2.1
   * **elguardia.py**
     * Se ha deshabilitado el comando `-help` predeterminado
