@@ -79,7 +79,7 @@ class Valores:
     @staticmethod
     def SERVER_ID():
         if Valores.TEST is True:
-            return 752649753430589591
+            return 760614553636962304
         if Valores.TEST is False:
             return 702167240463876129
 

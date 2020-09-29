@@ -26,6 +26,13 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.1.0.0
+  * **valores.py**
+    * Se actualizó la id del servidor de pruebas
+  * **requirements.txt**
+    * Se corrigieron las dependencias
+  * **elguardia.py**
+    * Se ha añadido el comando `-guardia help`
 * 1.0.2.2
   * **irAPaquear.py**
     * Se incrementó la cantidad de clientes necesarios para el paqueo por voz

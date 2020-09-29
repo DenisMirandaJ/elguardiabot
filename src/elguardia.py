@@ -12,7 +12,7 @@ from valores import ENVIRONMENT_LOCAL, Valores
 
 ####
 # VERSION
-Valores.VERSION = "1.0.2.2"
+Valores.VERSION = "1.1.0.0"
 ####
 
 
@@ -87,6 +87,9 @@ async def guardia(ctx, *args):
             return
         if args[0] == "version!":
             await ctx.send('Estoy en la version: ' + Valores.VERSION)
+            return
+        if args[0] == "help":
+            await ctx.send('Vaya a http://54.232.65.234:8000/ aún tenemos pendiente el dominio')
             return
     return
 
