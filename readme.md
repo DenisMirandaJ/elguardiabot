@@ -26,6 +26,9 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.1.0.1
+  * **requirements.txt**
+    * Se corrigieron las dependencias
 * 1.1.0.0
   * **valores.py**
     * Se actualizó la id del servidor de pruebas
