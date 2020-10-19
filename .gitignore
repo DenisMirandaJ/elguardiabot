@@ -1,0 +1,10 @@
+# Ide directories
+/.git/
+/.idea/
+/.vscode/
+# venv's
+/venvDiscordBot/
+/venv/
+/venvs/
+# bos's logs
+/logs/
