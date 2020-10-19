@@ -14,7 +14,7 @@ BOT = None
 
 # ids
 server_id = None
-token = None
+token = ''
 
 # messages
 HELP_STRING = 'Vaya a http://54.232.65.234:8000/ aún tenemos pendiente el dominio'
@@ -66,19 +66,19 @@ def gen_reglas():
 
 def startup(environment=ENVIRONMENT_SERVER, test=False):
     if environment is ENVIRONMENT_SERVER:
-        super().PATH_SOURCES = '/home/ubuntu/elguardiabot/res/'
-        super().PATH_FFMPEG = PATH_SOURCES + '/ffmpeg/ffmpeg'
-        super().PATH_LOGS = '/home/ubuntu/elguardiabot/logs/'
+        constants.PATH_SOURCES = '~/elguardiabot/res/'
+        constants.PATH_FFMPEG = constants.PATH_SOURCES + '/ffmpeg/ffmpeg'
+        constants.PATH_LOGS = '~/elguardiabot/logs/'
     elif environment is ENVIRONMENT_LOCAL:
-        super().PATH_SOURCES = '../res/'
-        super().PATH_FFMPEG = PATH_SOURCES + 'ffmpeg/ffmpeg.exe'
-        super().PATH_LOGS = '../logs/'
+        constants.PATH_SOURCES = '../res/'
+        constants.PATH_FFMPEG = constants.PATH_SOURCES + 'ffmpeg/ffmpeg.exe'
+        constants.PATH_LOGS = '~/logs/'
     if test is True:
-        super().server_id = 760614553636962304
-        super().token = botTokens.protoToken
+        constants.server_id = 760614553636962304
+        constants.token = botTokens.protoToken
     elif test is False:
-        super().server_id = 702167240463876129
-        super().token = botTokens.tokenGuardia
-    super().paqueos_genericos = gen_paqueos_genericos()
-    super().paqueos_por_mencion = gen_paqueos_por_mencion()
-    super().reglas = gen_reglas()
+        constants.server_id = 702167240463876129
+        constants.token = botTokens.tokenGuardia
+    constants.paqueos_genericos = gen_paqueos_genericos()
+    constants.paqueos_por_mencion = gen_paqueos_por_mencion()
+    constants.reglas = gen_reglas()

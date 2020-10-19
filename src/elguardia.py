@@ -95,4 +95,4 @@ async def guardia(ctx, *args):
 
 bot.add_cog(IrAPaquearCog(bot))
 # bot.add_cog(HelpCog(bot))
-bot.run(constants.token())
+bot.run(constants.token)
