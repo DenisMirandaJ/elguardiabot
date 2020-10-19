@@ -1,4 +1,4 @@
-# El guardia bot
+# El guardia bot    
 Es un bot de discord desarrollado para emular las funciones que realiza un guardia en la vida universitaria.
 
 ## Errores conocidos
@@ -25,6 +25,11 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - B: Implementaciones _normales_ o _menores_, o cambios en la funcionalidad de ellas.
 - C: Correción de errores.
 - D: Cambios menores.
+
+* 1.2.0.0
+  * **valores.py**
+    * Renombrado a **constants.py**
+    * Se han redefinido los nombres de algunas constantes y se han reorganizado. Este cambio implicó una modificación en cada otro archivo que invocaba las constantes de ejecución
 
 * 1.1.0.1
   * **requirements.txt**
