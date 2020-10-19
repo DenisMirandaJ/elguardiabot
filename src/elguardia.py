@@ -5,22 +5,21 @@ Bot de guardia, este archivo contiene los comandos es su inicializador
 import random
 
 from discord.ext import commands
-from irAPaquear import IrAPaquearCog
+from cogs.irAPaquear import IrAPaquearCog
+# from cogs.helpCommand import HelpCog
 # from log import Log
-# noinspection PyUnresolvedReferences
-from valores import ENVIRONMENT_LOCAL, Valores
+from configs import constants
 
 ####
 # VERSION
-Valores.VERSION = "1.1.0.1"
+constants.VERSION = "1.2.0.0"
 ####
+constants.startup()
+# constants.startup(environment=constants.ENVIRONMENT_LOCAL, test=True)
 
-
-# Valores.TEST = True
-# Valores.ENVIRONMENT = ENVIRONMENT_LOCAL
-bot = commands.Bot(command_prefix=Valores.COMMAND_PREFIX)
+bot = commands.Bot(command_prefix=constants.COMMAND_PREFIX)
 bot.remove_command('help')
-Valores.BOT = bot
+constants.BOT = bot
 
 
 # log = Log()
@@ -35,7 +34,7 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
-    bot.server = bot.get_guild(Valores.SERVER_ID())
+    bot.server = bot.get_guild(constants.server_id)
     print('------')
     return
 
@@ -60,9 +59,9 @@ async def paquear(ctx, *args):
             return
         if len(ctx.message.mentions) == 1:
             paqueado = ctx.message.mentions[0].mention
-            await ctx.send(paqueado + ' ' + random.choice(Valores.paqueos_por_mencion()))
+            await ctx.send(paqueado + ' ' + random.choice(constants.paqueos_por_mencion))
         return
-    paqueo = random.choice(Valores.paqueos_genericos())
+    paqueo = random.choice(constants.paqueos_genericos)
     await ctx.send(paqueo)
     return
 
@@ -83,16 +82,17 @@ async def guardia(ctx, *args):
         return
     if len(args) == 1:
         if args[0] == 'rules':
-            await ctx.send(Valores.reglas())
+            await ctx.send(constants.reglas)
             return
         if args[0] == "version!":
-            await ctx.send('Estoy en la version: ' + Valores.VERSION)
+            await ctx.send('Estoy en la version: ' + constants.VERSION)
             return
         if args[0] == "help":
-            await ctx.send('Vaya a http://54.232.65.234:8000/ aún tenemos pendiente el dominio')
+            await ctx.send(constants.HELP_STRING)
             return
     return
 
 
 bot.add_cog(IrAPaquearCog(bot))
-bot.run(Valores.TOKEN())
+# bot.add_cog(HelpCog(bot))
+bot.run(constants.token())

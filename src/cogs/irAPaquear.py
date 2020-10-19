@@ -4,7 +4,8 @@ Componente del bot guardia. Responsable de la tarea del paqueo, conexiones a can
 import random
 import discord
 from discord.ext import commands, tasks
-from valores import Valores
+
+from configs import constants
 
 
 class IrAPaquearCog(commands.Cog):
@@ -18,7 +19,7 @@ class IrAPaquearCog(commands.Cog):
         self.ir_a_paquear.start()
         return
 
-    @tasks.loop(seconds=Valores.TIEMPO_ENTRE_PAQUEOS)
+    @tasks.loop(seconds=constants.TIEMPO_ENTRE_PAQUEOS)
     async def ir_a_paquear(self):
         """
         Tarea que realiza el paqueo
@@ -56,7 +57,7 @@ def choose_random_channel():
     Función que intenta obtener un canal de voz habil.
     :return: random_voice_channel en exito. None de otra forma.
     """
-    random_voice_channel = random.choice(Valores.BOT.server.voice_channels)
+    random_voice_channel = random.choice(constants.BOT.server.voice_channels)
     can_connect = None
     for role in random_voice_channel.overwrites:
         perm_override = random_voice_channel.overwrites[role]
@@ -65,8 +66,8 @@ def choose_random_channel():
             break
     if can_connect is False:
         return None
-    if len(Valores.BOT.voice_clients) > 0:
-        if random_voice_channel == Valores.BOT.voice_clients[0].channel:
+    if len(constants.BOT.voice_clients) > 0:
+        if random_voice_channel == constants.BOT.voice_clients[0].channel:
             return None
     return random_voice_channel
 
@@ -76,8 +77,8 @@ async def disconnect_other_voice_clients():
     Realiza la desconexion de todos los otros clientes de voz en el momento del bot
     :return: None
     """
-    while len(Valores.BOT.voice_clients) > 0:
-        for client in Valores.BOT.voice_clients:
+    while len(constants.BOT.voice_clients) > 0:
+        for client in constants.BOT.voice_clients:
             await client.disconnect()
     return
 
@@ -91,9 +92,9 @@ async def connect_to_voice_channel(channel):
     """
     print("Attempting move to: ", channel)
     await channel.connect()
-    if len(channel.members) >= 5:
+    if len(channel.members) >= constants.cantidadMinParaPaquear:
         await fumando()
-    await turn_mute(voice_client=Valores.BOT.voice_clients[0], estado=True)
+    await turn_mute(voice_client=constants.BOT.voice_clients[0], estado=True)
     return
 
 
@@ -114,9 +115,9 @@ async def fumando():
     Metodo que reproduce en el primer cliente de voz del bot el audio "tan_fumando_senore.mp3"
     :return: None
     """
-    voice_client = Valores.BOT.voice_clients[0]
+    voice_client = constants.BOT.voice_clients[0]
     voice_channel = voice_client.channel
     if voice_channel is not None:
-        audio = Valores.PATH_SOURCES() + "tan_fumando_senore.mp3"
-        voice_client.play(discord.FFmpegPCMAudio(executable=Valores.PATH_FFMPEG(), source=audio))
+        audio = constants.PATH_SOURCES + "tan_fumando_senore.mp3"
+        voice_client.play(discord.FFmpegPCMAudio(executable=constants.PATH_FFMPEG, source=audio))
     return
