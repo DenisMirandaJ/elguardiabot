@@ -8,18 +8,19 @@ from discord.ext import commands
 from cogs.irAPaquear import IrAPaquearCog
 # from cogs.helpCommand import HelpCog
 # from log import Log
-from configs import constants
 
 ####
 # VERSION
-constants.VERSION = "1.2.0.0"
-####
-constants.startup()
-# constants.startup(environment=constants.ENVIRONMENT_LOCAL, test=True)
+from configs.constants import Constants, ENVIRONMENT_LOCAL
 
-bot = commands.Bot(command_prefix=constants.COMMAND_PREFIX)
+Constants.VERSION = "1.2.0.2"
+####
+Constants.startup()
+# Constants.startup(environment=ENVIRONMENT_LOCAL, test=True)
+
+bot = commands.Bot(command_prefix=Constants.COMMAND_PREFIX)
 bot.remove_command('help')
-constants.BOT = bot
+Constants.BOT = bot
 
 
 # log = Log()
@@ -34,7 +35,7 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
-    bot.server = bot.get_guild(constants.server_id)
+    bot.server = bot.get_guild(Constants.server_id)
     print('------')
     return
 
@@ -59,9 +60,9 @@ async def paquear(ctx, *args):
             return
         if len(ctx.message.mentions) == 1:
             paqueado = ctx.message.mentions[0].mention
-            await ctx.send(paqueado + ' ' + random.choice(constants.paqueos_por_mencion))
+            await ctx.send(paqueado + ' ' + random.choice(Constants.paqueos_por_mencion))
         return
-    paqueo = random.choice(constants.paqueos_genericos)
+    paqueo = random.choice(Constants.paqueos_genericos)
     await ctx.send(paqueo)
     return
 
@@ -82,17 +83,17 @@ async def guardia(ctx, *args):
         return
     if len(args) == 1:
         if args[0] == 'rules':
-            await ctx.send(constants.reglas)
+            await ctx.send(Constants.reglas)
             return
         if args[0] == "version!":
-            await ctx.send('Estoy en la version: ' + constants.VERSION)
+            await ctx.send('Estoy en la version: ' + Constants.VERSION)
             return
         if args[0] == "help":
-            await ctx.send(constants.HELP_STRING)
+            await ctx.send(Constants.HELP_STRING)
             return
     return
 
 
 bot.add_cog(IrAPaquearCog(bot))
 # bot.add_cog(HelpCog(bot))
-bot.run(constants.token())
+bot.run(Constants.token)

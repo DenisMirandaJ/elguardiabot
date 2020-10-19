@@ -4,7 +4,7 @@ Componente del bot guardia. Responsable de generar los archivos de registro del 
 import logging
 from datetime import datetime
 
-from configs import constants
+from configs.constants import Constants
 
 
 class Log:
@@ -17,7 +17,7 @@ class Log:
         logger.setLevel(logging.DEBUG)
         file_name = datetime.now().strftime('log_%Y_%m_%d_%H_%M.log')
         handler = logging.FileHandler(
-            filename=constants.PATH_LOGS + file_name, encoding='utf-8', mode='w')
+            filename=Constants.PATH_LOGS + file_name, encoding='utf-8', mode='w')
         handler.setFormatter(logging.Formatter(
             '%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         logger.addHandler(handler)

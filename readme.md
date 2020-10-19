@@ -26,6 +26,9 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.2.0.2
+  * Arreglo de errores relacionados a la nueva version de constants.py
+
 * 1.2.0.0
   * **valores.py**
     * Renombrado a **constants.py**

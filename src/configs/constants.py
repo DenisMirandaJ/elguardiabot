@@ -5,27 +5,48 @@ from configs import botTokens
 ENVIRONMENT_SERVER = 0
 ENVIRONMENT_LOCAL = 1
 
-# Settings
-VERSION = None
-TIEMPO_ENTRE_PAQUEOS = 60  # default:60f
-cantidadMinParaPaquear = 5  # default:5
-COMMAND_PREFIX = '-'
-BOT = None
 
-# ids
-server_id = None
-token = None
+class Constants:
+    VERSION = None
+    TIEMPO_ENTRE_PAQUEOS = 60  # default:60f
+    cantidadMinParaPaquear = 5  # default:5
+    COMMAND_PREFIX = '-'
+    BOT = None
 
-# messages
-HELP_STRING = 'Vaya a http://54.232.65.234:8000/ aún tenemos pendiente el dominio'
-paqueos_genericos = None
-paqueos_por_mencion = None
-reglas = None
+    # ids
+    server_id = None
+    token = ''
 
-# paths
-PATH_SOURCES = ''
-PATH_FFMPEG = ''
-PATH_LOGS = ''
+    # messages
+    HELP_STRING = 'Vaya a http://54.232.65.234:8000/ aún tenemos pendiente el dominio'
+    paqueos_genericos = None
+    paqueos_por_mencion = None
+    reglas = None
+
+    # paths
+    PATH_SOURCES = ''
+    PATH_FFMPEG = ''
+    PATH_LOGS = ''
+
+    @staticmethod
+    def startup(environment=ENVIRONMENT_SERVER, test=False):
+        if environment is ENVIRONMENT_SERVER:
+            Constants.PATH_SOURCES = '~/elguardiabot/res/'
+            Constants.PATH_FFMPEG = Constants.PATH_SOURCES + '/ffmpeg/ffmpeg'
+            Constants.PATH_LOGS = '~/elguardiabot/logs/'
+        elif environment is ENVIRONMENT_LOCAL:
+            Constants.PATH_SOURCES = '../res/'
+            Constants.PATH_FFMPEG = Constants.PATH_SOURCES + 'ffmpeg/ffmpeg.exe'
+            Constants.PATH_LOGS = '~/logs/'
+        if test is True:
+            Constants.server_id = 760614553636962304
+            Constants.token = botTokens.protoToken
+        elif test is False:
+            Constants.server_id = 702167240463876129
+            Constants.token = botTokens.tokenGuardia
+        Constants.paqueos_genericos = gen_paqueos_genericos()
+        Constants.paqueos_por_mencion = gen_paqueos_por_mencion()
+        Constants.reglas = gen_reglas()
 
 
 def gen_paqueos_genericos():
@@ -62,23 +83,3 @@ def gen_reglas():
         De cada categoría de juegos
         #general Es para que compartan sus nicks por allí y hablen de dicho juego por allí, en el general común se pierden sus mensajes :c'''
     return texto
-
-
-def startup(environment=ENVIRONMENT_SERVER, test=False):
-    if environment is ENVIRONMENT_SERVER:
-        super().PATH_SOURCES = '/home/ubuntu/elguardiabot/res/'
-        super().PATH_FFMPEG = PATH_SOURCES + '/ffmpeg/ffmpeg'
-        super().PATH_LOGS = '/home/ubuntu/elguardiabot/logs/'
-    elif environment is ENVIRONMENT_LOCAL:
-        super().PATH_SOURCES = '../res/'
-        super().PATH_FFMPEG = PATH_SOURCES + 'ffmpeg/ffmpeg.exe'
-        super().PATH_LOGS = '../logs/'
-    if test is True:
-        super().server_id = 760614553636962304
-        super().token = botTokens.protoToken
-    elif test is False:
-        super().server_id = 702167240463876129
-        super().token = botTokens.tokenGuardia
-    super().paqueos_genericos = gen_paqueos_genericos()
-    super().paqueos_por_mencion = gen_paqueos_por_mencion()
-    super().reglas = gen_reglas()

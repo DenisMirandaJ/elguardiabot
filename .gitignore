@@ -6,8 +6,9 @@
 /venvDiscordBot/
 /venv/
 /venvs/
-/src/__pycache__/
+/*/__pycache__/
+/*/*/__pycache__/
 # bos's logs
 /logs/
 # credentials
-/src/botTokens.py
+/src/configs/botTokens.py
