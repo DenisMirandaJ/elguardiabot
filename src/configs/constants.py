@@ -131,7 +131,7 @@ class Constants:
         """
         if environment is ENVIRONMENT_SERVER:
             Constants.PATH_SOURCES = '~/elguardiabot/res/'
-            Constants.PATH_FFMPEG = Constants.PATH_SOURCES + '/ffmpeg/ffmpeg'
+            Constants.PATH_FFMPEG = '/usr/bin/ffmpeg'
             Constants.PATH_LOGS = '~/elguardiabot/logs/'
         elif environment is ENVIRONMENT_LOCAL:
             Constants.PATH_SOURCES = '../res/'

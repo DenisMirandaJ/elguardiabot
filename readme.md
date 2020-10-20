@@ -33,7 +33,10 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
-
+* 1.2.1.2
+  * **src/configs/constants.py**
+    * Arreglada ruta del binario de ffmpeg para servidor (ahora requiere instalado el apt de ffmpeg)
+    
 * 1.2.1.1
   * **src/configs/constants.py**
     * Añadida documentación correspondiente
