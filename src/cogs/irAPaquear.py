@@ -59,18 +59,64 @@ def choose_random_channel():
     Función que intenta obtener un canal de voz habil.
     :return: random_voice_channel en exito. None de otra forma.
     """
-    random_voice_channel = random.choice(Constants.BOT.server.voice_channels)
-    can_connect = None
-    for role in random_voice_channel.overwrites:
-        perm_override = random_voice_channel.overwrites[role]
-        if role.name == "@everyone" or role.name == "uwus":
-            can_connect = perm_override.connect
-            break
-    if can_connect is False:
+    random_voice_channel = get_random_channel()
+    if has_required_people(random_voice_channel) is False:
         return None
-    if len(Constants.BOT.voice_clients) > 0:
-        if random_voice_channel == Constants.BOT.voice_clients[0].channel:
+    if has_perm_to_connect(random_voice_channel) is False:
+        return None
+    if bot_has_connected_clients():
+        if random_channel_is_connected_one(random_voice_channel):
             return None
+    return random_voice_channel
+
+
+def random_channel_is_connected_one(voice_channel):
+    """
+    Función booleana que indica si el canal voice_channel es el canal al que está conectado el cliente del bot
+    :param voice_channel: canal a verificar
+    :return: boolean
+    """
+    return voice_channel == Constants.BOT.voice_clients[0].channel
+
+
+def has_required_people(voice_channel):
+    """
+    Función booleana que indica si en el canal voice_channel está la cantidad requerida de clientes de voz
+    :param voice_channel:
+    :return: boolean
+    """
+    return len(voice_channel.members) == 0 or len(voice_channel.members) >= Constants.cantidadMinParaPaquear
+
+
+def has_perm_to_connect(voice_channel):
+    """
+    Función que verifica si el BOT no tiene prohibido conectarse voice_channel
+    :param voice_channel:
+    :return: True, si lo tiene explicitamente permitido.False, si lo tiene explicitamente prohibido. None si lo tiene implicitamente permitido
+    """
+    bot_roles = Constants.BOT.server.me.roles
+    for role in voice_channel.overwrites:
+        perm_override = voice_channel.overwrites[role]
+        if role in bot_roles:
+            return perm_override.connect
+    return None
+
+
+def bot_has_connected_clients():
+    """
+    boolean check if the Bot has voice clients connected
+    :return: boolean
+    """
+    return len(Constants.BOT.voice_clients) > 0
+
+
+def get_random_channel():
+    """
+    fetch a random voice channel from the current server
+    :return: random_voice_channel {voice_channel}
+    """
+    voice_channels = Constants.BOT.server.voice_channels
+    random_voice_channel = random.choice(voice_channels)
     return random_voice_channel
 
 
@@ -79,7 +125,7 @@ async def disconnect_other_voice_clients():
     Realiza la desconexion de todos los otros clientes de voz en el momento del bot
     :return: None
     """
-    while len(Constants.BOT.voice_clients) > 0:
+    while bot_has_connected_clients():
         for client in Constants.BOT.voice_clients:
             await client.disconnect()
     return
