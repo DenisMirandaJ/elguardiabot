@@ -4,6 +4,10 @@ Es un bot de discord desarrollado para emular las funciones que realiza un guard
 ## Errores conocidos
 
 ## Funciones por añadir
+* Que las rondas de parqueo comienzen desde las 9PM hasta las 8AM
+* Que las rondas de paqueo tengan distintas frecuencias:
+  * las clases tengan menor frecuencia
+  * los pastos tengan mayor frecuentcia
 * Comando de ayuda o información de los comandos
 * Web del bot (posiblemente otro proyecto) con los comando y link al repositorio
 
