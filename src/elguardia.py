@@ -14,7 +14,7 @@ from cogs.irAPaquear import IrAPaquearCog
 # VERSION
 from configs.constants import Constants, ENVIRONMENT_LOCAL
 
-Constants.VERSION = "1.2.1.0"
+Constants.VERSION = "1.2.1.1"
 ####
 Constants.startup()
 # Constants.startup(environment=ENVIRONMENT_LOCAL, test=True)

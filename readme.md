@@ -23,6 +23,9 @@ cada comando se utiliza con el prefijo "-" seguido de la instrucción
   * El guardia se comerá dicha cosa y agradecerá por ello (el es muy educado, **esperamos que usted también**)
 * `guardia version!`
   * El guardia asumirá su realidad como bot y dirá su versión actual
+* `guardia help`
+  * Indica el mensaje de ayuda
+
 ###### _control de versiones pendiente_
 Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ siguiendo el patrón A.B.C.D donde:
 - A: Identificador de gran cambio o implementación mayor.
@@ -30,6 +33,12 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+
+* 1.2.1.1
+  * **src/configs/constants.py**
+    * Añadida documentación correspondiente
+  * **readme.md**
+    * Añadido el comando `guardia help` a la lista de comandos soportados
 
 * 1.2.1.0
   * **src/cogs/irAPaquear.py**
