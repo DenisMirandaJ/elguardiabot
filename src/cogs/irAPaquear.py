@@ -2,7 +2,9 @@
 Componente del bot guardia. Responsable de la tarea del paqueo, conexiones a canales de voz y uso de mensajes de voz
 """
 import random
+# noinspection PyPackageRequirements
 import discord
+# noinspection PyPackageRequirements
 from discord.ext import commands, tasks
 
 from configs.constants import Constants
