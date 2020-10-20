@@ -16,8 +16,8 @@ from configs.constants import Constants, ENVIRONMENT_LOCAL
 
 Constants.VERSION = "1.2.1.0"
 ####
-Constants.startup()
-# Constants.startup(environment=ENVIRONMENT_LOCAL, test=True)
+# Constants.startup()
+Constants.startup(environment=ENVIRONMENT_LOCAL, test=True)
 
 bot = commands.Bot(command_prefix=Constants.COMMAND_PREFIX)
 bot.remove_command('help')
