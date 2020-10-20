@@ -30,6 +30,12 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+
+* 1.2.1.0
+  * **src/cogs/irAPaquear.py**
+    * Modularizado el comportamiento del la ronda de paqueo
+    * Ahora solo se conecta a canales vacios o con `src/configs/constants.py.Constants.cantidadMinParaPaquear` o más clientes de voz
+
 * 1.2.0.3
   * Corregidos requerimentos
 

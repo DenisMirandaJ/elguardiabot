@@ -4,6 +4,7 @@ Bot de guardia, este archivo contiene los comandos es su inicializador
 """
 import random
 
+# noinspection PyPackageRequirements
 from discord.ext import commands
 from cogs.irAPaquear import IrAPaquearCog
 # from cogs.helpCommand import HelpCog
@@ -13,10 +14,10 @@ from cogs.irAPaquear import IrAPaquearCog
 # VERSION
 from configs.constants import Constants, ENVIRONMENT_LOCAL
 
-Constants.VERSION = "1.2.0.3"
+Constants.VERSION = "1.2.1.0"
 ####
-Constants.startup()
-# Constants.startup(environment=ENVIRONMENT_LOCAL, test=True)
+# Constants.startup()
+Constants.startup(environment=ENVIRONMENT_LOCAL, test=True)
 
 bot = commands.Bot(command_prefix=Constants.COMMAND_PREFIX)
 bot.remove_command('help')
