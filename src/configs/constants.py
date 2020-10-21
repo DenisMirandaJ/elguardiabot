@@ -5,8 +5,10 @@ Archivo que define las constantes y configurables del bot
 from configs import botTokens
 
 # MAGIC CONSTANTS
-ENVIRONMENT_SERVER = 0
-ENVIRONMENT_LOCAL = 1
+PATH_SERVER = '/home/ubuntu/elguardiabot/'
+PATH_LOCAL = '../'
+LINUX_amd64 = 1
+WIN10_x64 = 2
 
 
 class Constants:
@@ -81,7 +83,7 @@ class Constants:
     #
     #
     # -------------------------------------------------
-    # Constantes asignadas en función a startup() 'environment'
+    # Constantes asignadas en función a startup() 'project_path'
     # -------------------------------------------------
     #
     #
@@ -121,28 +123,29 @@ class Constants:
     """
 
     @staticmethod
-    def startup(environment=ENVIRONMENT_SERVER, test=False):
+    def startup(os=LINUX_amd64, project_path=PATH_SERVER, test=False):
         """
         Metodo estatico que asigna la configuración dinamica del bot, en función a su entorno
         y sea de pruebas o retail, también invoca los metodos generadores de los mensajes
-        :param environment:
+        :param project_path:
         :param test:
         :return:
         """
-        if environment is ENVIRONMENT_SERVER:
-            Constants.PATH_SOURCES = '~/elguardiabot/res/'
-            Constants.PATH_FFMPEG = '/usr/bin/ffmpeg'
-            Constants.PATH_LOGS = '~/elguardiabot/logs/'
-        elif environment is ENVIRONMENT_LOCAL:
-            Constants.PATH_SOURCES = '../res/'
+        Constants.PATH_SOURCES = project_path + 'res/'
+        Constants.PATH_LOGS = project_path + 'logs/'
+
+        if os is LINUX_amd64:
+            Constants.PATH_FFMPEG = Constants.PATH_SOURCES + 'ffmpeg/ffmpeg-4.3.1-amd64-static/ffmpeg'
+        elif os is WIN10_x64:
             Constants.PATH_FFMPEG = Constants.PATH_SOURCES + 'ffmpeg/ffmpeg.exe'
-            Constants.PATH_LOGS = '~/logs/'
+        
         if test is True:
             Constants.server_id = 760614553636962304
             Constants.token = botTokens.protoToken
         elif test is False:
             Constants.server_id = 702167240463876129
             Constants.token = botTokens.tokenGuardia
+        
         Constants.paqueos_genericos = gen_paqueos_genericos()
         Constants.paqueos_por_mencion = gen_paqueos_por_mencion()
         Constants.reglas = gen_reglas()

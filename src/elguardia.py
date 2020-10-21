@@ -7,24 +7,19 @@ import random
 # noinspection PyPackageRequirements
 from discord.ext import commands
 from cogs.irAPaquear import IrAPaquearCog
-# from cogs.helpCommand import HelpCog
-# from log import Log
 
 ####
 # VERSION
-from configs.constants import Constants, ENVIRONMENT_LOCAL
+from configs.constants import Constants, WIN10_x64, PATH_LOCAL
 
-Constants.VERSION = "1.2.1.2"
+Constants.VERSION = "1.2.2.0"
 ####
 Constants.startup()
-# Constants.startup(environment=ENVIRONMENT_LOCAL, test=True)
+#Constants.startup(os=WIN10_x64, project_path=PATH_LOCAL, test=True)
 
 bot = commands.Bot(command_prefix=Constants.COMMAND_PREFIX)
 bot.remove_command('help')
 Constants.BOT = bot
-
-
-# log = Log()
 
 
 @bot.event

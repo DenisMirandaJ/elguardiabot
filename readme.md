@@ -33,6 +33,14 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.2.2.0
+  * **src/configs/constants.py**
+    * Cambio en el binario de ffmpeg para linux
+    * Cambio en la firma Constants.startup()
+    * Definidas nuevas constantes, facilitando la configurabilidad del bot
+  * **debug/**
+    * Se han eliminado completamente los archivos relacionados a logs
+    * En consecuencia, también el directorio vacio
 * 1.2.1.2
   * **src/configs/constants.py**
     * Arreglada ruta del binario de ffmpeg para servidor (ahora requiere instalado el apt de ffmpeg)
