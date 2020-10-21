@@ -15,7 +15,7 @@ from configs.constants import Constants, WIN10_x64, PATH_LOCAL
 Constants.VERSION = "1.2.2.0"
 ####
 Constants.startup()
-#Constants.startup(os=WIN10_x64, project_path=PATH_LOCAL, test=True)
+# Constants.startup(os=WIN10_x64, project_path=PATH_LOCAL, test=True)
 
 bot = commands.Bot(command_prefix=Constants.COMMAND_PREFIX)
 bot.remove_command('help')

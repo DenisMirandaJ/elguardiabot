@@ -4,10 +4,10 @@ Es un bot de discord desarrollado para emular las funciones que realiza un guard
 ## Errores conocidos
 
 ## Funciones por añadir
-* Que las rondas de parqueo comienzen desde las 9PM hasta las 8AM
+* Que las rondas de parqueo comiencen desde las 9PM hasta las 8AM
 * Que las rondas de paqueo tengan distintas frecuencias:
   * las clases tengan menor frecuencia
-  * los pastos tengan mayor frecuentcia
+  * los pastos tengan mayor frecuencia
 * Comando de ayuda o información de los comandos
 * Web del bot (posiblemente otro proyecto) con los comando y link al repositorio
 
@@ -35,7 +35,7 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 
 * 1.2.2.0
   * **src/configs/constants.py**
-    * Cambio en el binario de ffmpeg para linux
+    * Cambio en el binario de ffmpeg para linux (ya no requiere instalado el apt del ffmpeg, pues lo contiene)
     * Cambio en la firma Constants.startup()
     * Definidas nuevas constantes, facilitando la configurabilidad del bot
   * **debug/**

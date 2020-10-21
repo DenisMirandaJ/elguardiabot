@@ -127,8 +127,9 @@ class Constants:
         """
         Metodo estatico que asigna la configuración dinamica del bot, en función a su entorno
         y sea de pruebas o retail, también invoca los metodos generadores de los mensajes
-        :param project_path:
-        :param test:
+        :param os: Sistema operativo en el que se iniciará el bot
+        :param project_path: ruta del directorio del proyecto
+        :param test: booleano, si utiliza o no las credenciales de pruebas
         :return:
         """
         Constants.PATH_SOURCES = project_path + 'res/'
@@ -138,14 +139,14 @@ class Constants:
             Constants.PATH_FFMPEG = Constants.PATH_SOURCES + 'ffmpeg/ffmpeg-4.3.1-amd64-static/ffmpeg'
         elif os is WIN10_x64:
             Constants.PATH_FFMPEG = Constants.PATH_SOURCES + 'ffmpeg/ffmpeg.exe'
-        
+
         if test is True:
             Constants.server_id = 760614553636962304
             Constants.token = botTokens.protoToken
         elif test is False:
             Constants.server_id = 702167240463876129
             Constants.token = botTokens.tokenGuardia
-        
+
         Constants.paqueos_genericos = gen_paqueos_genericos()
         Constants.paqueos_por_mencion = gen_paqueos_por_mencion()
         Constants.reglas = gen_reglas()
