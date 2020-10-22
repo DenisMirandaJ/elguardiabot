@@ -2,6 +2,7 @@
 Es un bot de discord desarrollado para emular las funciones que realiza un guardia en la vida universitaria.
 
 ## Errores conocidos
+* El guardia en ciertos casos no responde al comado -paquear
 
 ## Funciones por añadir
 * Que las rondas de parqueo comiencen desde las 9PM hasta las 8AM
