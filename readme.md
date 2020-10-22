@@ -33,6 +33,10 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+* 1.2.2.1
+  * **src/configs/constants.py**
+    * Se ha redefinido la ruta del proyecto, ya no está hard-coded
+
 * 1.2.2.0
   * **src/configs/constants.py**
     * Cambio en el binario de ffmpeg para linux (ya no requiere instalado el apt del ffmpeg, pues lo contiene)

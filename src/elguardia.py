@@ -10,12 +10,12 @@ from cogs.irAPaquear import IrAPaquearCog
 
 ####
 # VERSION
-from configs.constants import Constants, WIN10_x64, PATH_LOCAL
+from configs.constants import Constants, WIN10_x64
 
-Constants.VERSION = "1.2.2.0"
+Constants.VERSION = "1.2.2.1"
 ####
 Constants.startup()
-# Constants.startup(os=WIN10_x64, project_path=PATH_LOCAL, test=True)
+# Constants.startup(operating_system=WIN10_x64, test=True)
 
 bot = commands.Bot(command_prefix=Constants.COMMAND_PREFIX)
 bot.remove_command('help')

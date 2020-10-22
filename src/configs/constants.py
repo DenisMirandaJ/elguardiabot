@@ -2,11 +2,12 @@
 """
 Archivo que define las constantes y configurables del bot
 """
+import os
+
 from configs import botTokens
 
 # MAGIC CONSTANTS
-PATH_SERVER = '/home/ubuntu/elguardiabot/'
-PATH_LOCAL = '../'
+PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + "/"
 LINUX_amd64 = 1
 WIN10_x64 = 2
 
@@ -123,21 +124,20 @@ class Constants:
     """
 
     @staticmethod
-    def startup(os=LINUX_amd64, project_path=PATH_SERVER, test=False):
+    def startup(operating_system=LINUX_amd64, test=False):
         """
         Metodo estatico que asigna la configuración dinamica del bot, en función a su entorno
         y sea de pruebas o retail, también invoca los metodos generadores de los mensajes
-        :param os: Sistema operativo en el que se iniciará el bot
-        :param project_path: ruta del directorio del proyecto
+        :param operating_system: Sistema operativo en el que se iniciará el bot
         :param test: booleano, si utiliza o no las credenciales de pruebas
         :return:
         """
-        Constants.PATH_SOURCES = project_path + 'res/'
-        Constants.PATH_LOGS = project_path + 'logs/'
+        Constants.PATH_SOURCES = PROJECT_PATH + 'res/'
+        Constants.PATH_LOGS = PROJECT_PATH + 'logs/'
 
-        if os is LINUX_amd64:
+        if operating_system is LINUX_amd64:
             Constants.PATH_FFMPEG = Constants.PATH_SOURCES + 'ffmpeg/ffmpeg-4.3.1-amd64-static/ffmpeg'
-        elif os is WIN10_x64:
+        elif operating_system is WIN10_x64:
             Constants.PATH_FFMPEG = Constants.PATH_SOURCES + 'ffmpeg/ffmpeg.exe'
 
         if test is True:
