@@ -24,7 +24,7 @@ class Constants:
     # -------------------------------------------------
     #
     #
-    TIEMPO_ENTRE_PAQUEOS = 60
+    TIEMPO_ENTRE_PAQUEOS = 3
     """
     Constante que define el periodo de segundos entre rondas te la tarea
     suggested = 60
@@ -59,6 +59,8 @@ class Constants:
     """
     Pool de paqueos invocada en '-guardia paquear @[etiqueta]'. Asignada en startup() via gen_paqueos_genericos()    
     """
+
+    excluded_channels = None
 
     reglas = None
     """
@@ -134,7 +136,6 @@ class Constants:
         """
         Constants.PATH_SOURCES = PROJECT_PATH + 'res/'
         Constants.PATH_LOGS = PROJECT_PATH + 'logs/'
-
         if operating_system is LINUX_amd64:
             Constants.PATH_FFMPEG = Constants.PATH_SOURCES + 'ffmpeg/ffmpeg-4.3.1-amd64-static/ffmpeg'
         elif operating_system is WIN10_x64:
@@ -147,6 +148,7 @@ class Constants:
             Constants.server_id = 702167240463876129
             Constants.token = botTokens.tokenGuardia
 
+        Constants.excluded_channels = gen_canales_excluidos()
         Constants.paqueos_genericos = gen_paqueos_genericos()
         Constants.paqueos_por_mencion = gen_paqueos_por_mencion()
         Constants.reglas = gen_reglas()
@@ -199,3 +201,15 @@ def gen_reglas():
         De cada categoría de juegos
         #general Es para que compartan sus nicks por allí y hablen de dicho juego por allí, en el general común se pierden sus mensajes :c'''
     return texto
+
+
+def gen_canales_excluidos():
+    """
+    Generador de los canales excluidos
+    :return: canales excluidos
+    """
+    canales_excluidos = {"cinema gei": 709250093173178378,
+
+                         }
+
+    return canales_excluidos

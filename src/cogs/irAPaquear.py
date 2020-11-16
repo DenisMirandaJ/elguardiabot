@@ -54,12 +54,25 @@ async def connection_protocol():
     return
 
 
+def is_excluded_channel(random_voice_channel):
+    """
+    Procedimiento que varifica que un canal no esté excluido
+    :param random_voice_channel:
+    :return: True si está excluido. False de otra manera.
+    """
+    if random_voice_channel.id in Constants.excluded_channels.values():
+        return True
+    return False
+
+
 def choose_random_channel():
     """
     Función que intenta obtener un canal de voz habil.
     :return: random_voice_channel en exito. None de otra forma.
     """
     random_voice_channel = get_random_channel()
+    if is_excluded_channel(random_voice_channel) is True:
+        return None
     if has_required_people(random_voice_channel) is False:
         return None
     if has_perm_to_connect(random_voice_channel) is False:

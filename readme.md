@@ -2,7 +2,8 @@
 Es un bot de discord desarrollado para emular las funciones que realiza un guardia en la vida universitaria.
 
 ## Errores conocidos
-* El guardia en ciertos casos no responde al comado -paquear
+* En caso que solo que un canal de voz si excluir, el bot se cae tras su primera conexion.
+* El guardia en ciertos casos no responde al comado -paquear (Debido a la concurrecia en la maquina virtual)
 
 ## Funciones por añadir
 * Que las rondas de parqueo comiencen desde las 9PM hasta las 8AM
@@ -33,6 +34,12 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - B: Implementaciones _normales_ o _menores_, o cambios en la funcionalidad de ellas.
 - C: Correción de errores.
 - D: Cambios menores.
+
+* 1.2.3.0
+  * **src/configs/constants.py**
+    * Se ha añadido un generador de canales excluidos.
+  * **src/irAPaquear.py***
+    * Se ha añadido la validación a la conexión de los canales excluidos
 
 * 1.2.2.1
   * **src/configs/constants.py**
