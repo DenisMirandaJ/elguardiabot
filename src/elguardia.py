@@ -12,7 +12,7 @@ from cogs.irAPaquear import IrAPaquearCog
 # VERSION
 from configs.constants import Constants, WIN10_x64
 
-Constants.VERSION = "1.2.3.0"
+Constants.VERSION = "1.2.3.1"
 ####
 Constants.startup()
 # Constants.startup(operating_system=WIN10_x64, test=True)

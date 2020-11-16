@@ -35,6 +35,11 @@ Se considerará la version 1.0.0.0 como la inicial, con el guardia _estable_ sig
 - C: Correción de errores.
 - D: Cambios menores.
 
+
+* 1.2.3.1
+  * **src/configs/constants.py**
+    * Se ha corregido el tiempo entre paqueos.
+
 * 1.2.3.0
   * **src/configs/constants.py**
     * Se ha añadido un generador de canales excluidos.

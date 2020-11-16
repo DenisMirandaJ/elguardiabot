@@ -24,7 +24,7 @@ class Constants:
     # -------------------------------------------------
     #
     #
-    TIEMPO_ENTRE_PAQUEOS = 3
+    TIEMPO_ENTRE_PAQUEOS = 60
     """
     Constante que define el periodo de segundos entre rondas te la tarea
     suggested = 60
