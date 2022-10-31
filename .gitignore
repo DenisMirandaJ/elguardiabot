@@ -1,0 +1,15 @@
+# Ide directories
+/.git/
+/.idea/
+/.vscode/
+# venv's
+/venvDiscordBot/
+/venv/
+/venvs/
+/*/__pycache__/
+/*/*/__pycache__/
+# bos's logs
+/logs/
+# credentials
+/src/configs/botTokens.py
+elguardia.service

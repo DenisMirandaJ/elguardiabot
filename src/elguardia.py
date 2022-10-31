@@ -1,28 +1,49 @@
 # -*- coding: utf8 -*-
+"""
+Bot de guardia, este archivo contiene los comandos es su inicializador
+"""
 import random
 
-import discord
+# noinspection PyPackageRequirements
+from discord.ext import commands
+from cogs.irAPaquear import IrAPaquearCog
 
-from discord.ext import commands, tasks
-from valores import ENVIRONMENT_LOCAL, Valores
+####
+# VERSION
+from configs.constants import Constants, WIN10_x64
 
-valores = Valores(test=False, environment=ENVIRONMENT_LOCAL)
+Constants.VERSION = "1.2.3.1"
+####
+Constants.startup()
+# Constants.startup(operating_system=WIN10_x64, test=True)
 
-bot = commands.Bot(command_prefix=valores.COMMAND_PREFIX)
+bot = commands.Bot(command_prefix=Constants.COMMAND_PREFIX)
+bot.remove_command('help')
+Constants.BOT = bot
 
 
 @bot.event
 async def on_ready():
+    """
+    Evento disparado al estar listo el bot, entrega información breve y obtiene el servidor de conexión
+    :return: None
+    """
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
-    bot.server = bot.get_guild(valores.SERVER_ID)
+    bot.server = bot.get_guild(Constants.server_id)
     print('------')
     return
 
 
 @bot.command()
 async def paquear(ctx, *args):
+    """
+    Comando de paqueo, soporta etiquetas
+    :param ctx: Contexto
+    :param args: Estamentos tras el comando, separados por espacios
+    :return: None
+    """
     if len(args) == 1:
         if args[0].lower() == 'guetti':
             await ctx.send('Guetti deja el lol')
@@ -35,15 +56,21 @@ async def paquear(ctx, *args):
             return
         if len(ctx.message.mentions) == 1:
             paqueado = ctx.message.mentions[0].mention
-            await ctx.send(paqueado + ' ' + random.choice(valores.pool_paqueos_mencion()))
+            await ctx.send(paqueado + ' ' + random.choice(Constants.paqueos_por_mencion))
         return
-    paqueo = random.choice(valores.pool_paqueos_genericos())
+    paqueo = random.choice(Constants.paqueos_genericos)
     await ctx.send(paqueo)
     return
 
 
 @bot.command()
 async def guardia(ctx, *args):
+    """
+    Comando general del bot, soporta instrucciones de [dar <str>], [rules] y [version!]
+    :param ctx: Contexto
+    :param args: Estamentos tras el comando, separados por espacios
+    :return: None
+    """
     print('guardia')
     if len(args) == 2 and args[0] == 'dar':
         r1 = '\*Se come el {}\* Gracias estaba muy bueno'.format(args[1])
@@ -52,93 +79,17 @@ async def guardia(ctx, *args):
         return
     if len(args) == 1:
         if args[0] == 'rules':
-            await ctx.send(valores.reglas())
+            await ctx.send(Constants.reglas)
             return
-    paqueo = random.choice(valores.pool_paqueos_genericos())
-    await ctx.send(paqueo)
-    return
-
-
-class IrAPaquearCog(commands.Cog):
-    def __init__(self, bot_1):
-        self.bot = bot_1
-        self.data = []
-        self.irAPaquear.start()
-        return
-
-    @tasks.loop(seconds=valores.TIEMPO_ENTRE_PAQUEOS)
-    async def irAPaquear(self):
-        await connectionProtocol()
-        return
-
-    @irAPaquear.before_loop
-    async def beforePaquear(self):
-        await self.bot.wait_until_ready()
-        return
-
-
-async def connectionProtocol():
-    channel = chooseRandomChannel()
-    while not channel:
-        channel = chooseRandomChannel()
-    await disconnectOtherVoiceClients()
-    await connectToVoiceChannel(channel)
-    return
-
-
-# noinspection PyUnresolvedReferences
-def chooseRandomChannel():
-    randomVoiceChannel = random.choice(bot.server.voice_channels)
-    canConnect = None
-    for role in randomVoiceChannel.overwrites:
-        permOverride = randomVoiceChannel.overwrites[role]
-        if role.name == "@everyone" or role.name == "uwus":
-            canConnect = permOverride.connect
-            break
-    if canConnect is False:
-        return None
-    if len(bot.voice_clients) > 0:
-        if randomVoiceChannel == bot.voice_clients[0].channel:
-            return None
-    return randomVoiceChannel
-
-
-async def disconnectOtherVoiceClients():
-    while len(bot.voice_clients) > 0:
-        for client in bot.voice_clients:
-            await client.disconnect()
-    return
-
-
-async def connectToVoiceChannel(channel):
-    print("Attempting move to: ", channel)
-    await channel.connect()
-    if len(channel.members) >= 3:
-        await fumando()
-    await selfMute(bot.voice_clients[0])
-    return
-
-
-async def selfMute(voiceClient):
-    await voiceClient.main_ws.voice_state(guild_id=voiceClient.guild.id, channel_id=voiceClient.channel.id,
-                                          self_mute=True)
-    return
-
-
-async def unMute(voiceClient):
-    await voiceClient.main_ws.voice_state(guild_id=voiceClient.guild.id, channel_id=voiceClient.channel.id,
-                                          self_mute=False)
-    return
-
-
-async def fumando():
-    voiceClient = bot.voice_clients[0]
-    voiceChannel = voiceClient.channel
-    if voiceChannel is not None:
-        audio = valores.PATH_SOURCES + "tan_fumando_senore.mp3"
-        voiceClient.play(discord.FFmpegPCMAudio(executable=valores.PATH_FFMPEG, source=audio))
+        if args[0] == "version!":
+            await ctx.send('Estoy en la version: ' + Constants.VERSION)
+            return
+        if args[0] == "help":
+            await ctx.send(Constants.HELP_STRING)
+            return
     return
 
 
 bot.add_cog(IrAPaquearCog(bot))
-bot.run(valores.TOKEN)
+# bot.add_cog(HelpCog(bot))
+bot.run(Constants.token)
